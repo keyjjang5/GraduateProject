@@ -13,3 +13,7 @@
 
 Packages에 있는 내용은 유니티 에셋들을 다운로드하여 사용한 것들이다.
 > 기본에셋들과 Unity technologies의 것들 같다.
+
+Start 분석
+1. System, UI, SceneAssets을 구분
+System
