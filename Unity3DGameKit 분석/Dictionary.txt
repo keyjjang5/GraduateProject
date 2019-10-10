@@ -1,0 +1,3 @@
+hash처럼 키와 밸류값으로 구성된다.
+Dictionary를 만들어서 키와 밸류값으로 매칭시킨것들을 여러개 저장하는 것
+Dictionary.TryGetValue : Key를 통해서 value를 반환한다.
