@@ -20,8 +20,10 @@ public class ShotBullet : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             GameObject newBullet = Instantiate(bullet);
-            newBullet.transform.SetParent(gun.transform);
+            //newBullet.transform.SetParent(gun.transform);
+            newBullet.GetComponent<Bullet>().lookAtPos = MousePointer.GetMousePos();
             newBullet.transform.position = gun.transform.position;
+            //newBullet.transform.position = newBullet.GetComponent<Bullet>().lookAtPos;
         }
     }
 }
