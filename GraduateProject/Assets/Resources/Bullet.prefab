@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtPos: {x: 0, y: 0, z: 0}
   speed: 0
+  range: 0
 --- !u!54 &83982592777855072
 Rigidbody:
   m_ObjectHideFlags: 0

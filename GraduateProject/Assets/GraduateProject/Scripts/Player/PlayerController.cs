@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance { get { return s_Instance; } }
 
     private float speed;
+    public List<Weapon> ownWeapons = new List<Weapon>();
+    Weapon equipment;
+    public List<GameObject> bullets;
+    Transform weaponPos;
 
     public float maxForwardSpeed = 8f;        // How fast Ellen can run.
     public float gravity = 20f;               // How fast Ellen accelerates downwards when airborne.
@@ -51,6 +55,9 @@ public class PlayerController : MonoBehaviour
         s_Instance = this;
 
         m_TransformTargetRot = transform.localRotation;
+
+        ownWeapons.Clear();
+        weaponPos = transform.GetChild(4);
     }
     void Start()
     {
@@ -60,6 +67,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.anyKey)
+        {
+            if (Input.GetMouseButtonDown(0))
+                shot();
+            if (Input.GetKeyDown(KeyCode.R))
+                reload();
+        }
         
     }
 
@@ -72,22 +86,10 @@ public class PlayerController : MonoBehaviour
     // 캐릭터가 마우스를 바라봄
     void lookAtMouse()
     {
-        //Vector3 mouse = Input.mousePosition;
-
-        //Debug.Log("mouse.x : " + mouse.x + "mouse.y : " + mouse.y + "mouse.z : " + mouse.z);
-
-        //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, -Camera.main.transform.position.z));
-
-        //Debug.Log("mouseWorld.x : " + mouseWorld.x + "mouseWorld.y : " + mouseWorld.y + "mouseWorld.z : " + mouseWorld.z);
-
         Vector3 lookTarget = new Vector3(0, 0, 0);
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            lookTarget = hit.point;
-            lookTarget.y = transform.position.y;
-        }
+        lookTarget = MousePointer.GetMousePos();
+        lookTarget.y = transform.position.y;
+
         transform.LookAt(lookTarget);
     }
 
@@ -117,8 +119,11 @@ public class PlayerController : MonoBehaviour
                 CalculateForwardMovement();
             }
         }
+        else
+            m_Animator.SetFloat(m_HashForwardSpeed, 0);
     }
 
+    // 캐릭터 이동 계산
     void CalculateForwardMovement()
     {
         // Cache the move input and cap it's magnitude at 1.
@@ -137,5 +142,54 @@ public class PlayerController : MonoBehaviour
 
         // Set the animator parameter to control what animation is being played.
         m_Animator.SetFloat(m_HashForwardSpeed, m_ForwardSpeed);
+    }
+
+    // 무기리스트에 추가
+    public void addWeapon(Weapon weapon)
+    {
+        if (ownWeapons.Count >= 3)
+        {
+            drop(weapon);
+            return;
+        }
+
+        ownWeapons.Add(weapon);
+        equipWeapon(weapon);
+
+    }
+
+    // 무기 떨어뜨림
+    void drop(Weapon weapon)
+    {
+
+    }
+
+    // 무기 장착
+    void equipWeapon(Weapon weapon)
+    {
+        equipment = weapon;
+    }
+
+    void shot()
+    {
+        if (equipment as Gun == null)
+            return;
+
+        Gun gun = equipment as Gun;
+        int bulletNum = gun.MaxMagazine - gun.CurrentMagazine;
+        if (bulletNum == gun.MaxMagazine)
+            return;
+        bullets[bulletNum].transform.position = weaponPos.position;
+        gun.shot(bullets[bulletNum]);
+    }
+
+    // 재장전
+    void reload()
+    {
+        if (equipment as Gun == null)
+            return;
+
+        Gun gun = equipment as Gun;
+        gun.reload();
     }
 }
