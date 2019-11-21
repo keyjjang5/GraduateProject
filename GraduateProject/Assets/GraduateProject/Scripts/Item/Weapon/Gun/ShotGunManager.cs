@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalGunManager : GunManager
+public class ShotGunManager : GunManager
 {
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        item = new NormalGun();
+        item = new ShotGun();
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class NormalGunManager : GunManager
         Gun gun = weapon as Gun;
         for (int i = 0; i < gun.MaxMagazine; i++)
         {
-            GameObject newBullet = Instantiate(Resources.Load("Bullet") as GameObject);
+            GameObject newBullet = Instantiate(Resources.Load("ShotGunBullet") as GameObject);
             newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
             bullets.Add(newBullet);
         }

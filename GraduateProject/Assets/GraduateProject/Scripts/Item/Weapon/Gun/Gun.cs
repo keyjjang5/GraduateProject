@@ -5,25 +5,27 @@ using UnityEngine;
 [System.Serializable]
 public class Gun : Weapon
 {
-    [SerializeField]
     protected int maxMagazine;      // 탄창
     public int MaxMagazine
     {
         get { return maxMagazine; }
     }
-    [SerializeField]
     protected int currentMagazine;  // 남은 탄창
     public int CurrentMagazine
     {
         get { return currentMagazine; }
     }
-    [SerializeField]
     protected float ammo;              // 탄약
     protected int pellets;      // 한발에 사출되는 총알의 수
     protected float reloadTime; // 재장전 시간
     protected float range;      // 사정거리
     protected float speed;      // 탄속
     protected float rpm;        // 연사속도(Round Per Minute)
+    protected float damage;     // 공격력
+    public float Damage
+    {
+        get { return damage; }
+    }
 
     public Gun() : base()
     {

@@ -9,22 +9,28 @@ public class Bullet : MonoBehaviour
     public Vector3 lookAtPos;
     public float speed;
     public float range;
-    private float timer;
+    protected float timer;
 
-    private Vector3 dir;
+    protected float damage;
+    public float Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
+    protected Vector3 dir;
     public Vector3 Direction
     {
         get { return dir; }
         set { dir = value.normalized; }
     }
-    private Vector3 magazinePos;
+    protected Vector3 magazinePos;
     public Vector3 MagazinePos
     {
         get { return MagazinePos; }
         set { MagazinePos = value; }
     }
 
-    private bool isPlay = false;
+    protected bool isPlay = false;
     public bool IsPlay
     {
         get { return isPlay; }
@@ -32,7 +38,7 @@ public class Bullet : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         timer = 0.0f;
 
@@ -40,13 +46,13 @@ public class Bullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (!isPlay)
             return;
 
         timer += Time.deltaTime;
-        if (timer >= 5.0f)
+        if (timer >= range / speed)
         {
             returnMagazine();
             return;
@@ -66,9 +72,24 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform.tag == "Bullet")
+            return;
+        if (collision.transform.tag == "Monster")
+        { }// 몬스터 체력을 데미지 만큼 깎음
+
+        returnMagazine();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Bullet")
+            return;
+        if (other.transform.tag == "Monster")
+        { }// 몬스터 체력을 데미지 만큼 깎음
+
         returnMagazine();
     }
 
+    // 총알 저장소로 돌아감
     private void returnMagazine()
     {
         isPlay = false;

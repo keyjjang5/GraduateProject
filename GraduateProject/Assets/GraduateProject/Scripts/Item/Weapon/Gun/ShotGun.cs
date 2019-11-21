@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class NormalGun : Gun
+public class ShotGun : Gun
 {
-    public NormalGun() : base()
+    public ShotGun() : base()
     {
-        maxMagazine = 12;
-        currentMagazine = 12;
-        ammo = Mathf.Infinity;
-        pellets = 1;
+        maxMagazine = 2;
+        currentMagazine = 2;
+        ammo = 40;
+        pellets = 10;
         reloadTime = 5.0f;
-        range = 20.0f;
-        speed = 7.0f;
-        rpm = 60;
+        range = 10.0f;
+        speed = 20.0f;
+        rpm = 10;
         damage = 1.0f;
     }
 
     public override void interaction()
     {
-        Debug.Log("NormalGun");
+        Debug.Log("ShotGun");
     }
 
     public override void action()
     {
-        Debug.Log("NormalGunAction");
-        
+        Debug.Log("ShotGunAction");
+
     }
 
     public override void shot(GameObject bullet)
@@ -34,7 +33,7 @@ public class NormalGun : Gun
         if (currentMagazine < 0)
             return;
 
-        Bullet bulletComp = bullet.GetComponent<Bullet>();
+        ShotGunBullet bulletComp = bullet.GetComponent<ShotGunBullet>();
         bulletComp.lookAtPos = MousePointer.GetMousePos();
         bulletComp.lookAtPos.y = bullet.transform.position.y;
         bulletComp.Direction = bulletComp.lookAtPos - bullet.transform.position;
@@ -42,13 +41,15 @@ public class NormalGun : Gun
         bulletComp.range = this.range;
         bulletComp.IsPlay = true;
         bulletComp.Damage = damage;
+        bulletComp.Pellets = pellets;
+        bulletComp.shot();
 
         currentMagazine -= 1;
     }
 
     public override void reload()
     {
-        Debug.Log("NormalGunReload");
+        Debug.Log("ShotGunReload");
 
         ammo -= maxMagazine - currentMagazine;
         currentMagazine = maxMagazine;
