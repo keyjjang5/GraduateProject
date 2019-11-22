@@ -28,6 +28,8 @@ public class WeaponManager : ItemManager
 
     protected virtual void addWeapon(Weapon weapon)
     {
+        // Destroy가 불리기 전에 작업을 끝내기 때문에 이렇게 써도 괜찮음
         playerController.addWeapon(weapon);
+        Destroy(gameObject);
     }
 }

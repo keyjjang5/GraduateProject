@@ -57,7 +57,8 @@ public class PlayerController : MonoBehaviour
         m_TransformTargetRot = transform.localRotation;
 
         ownWeapons.Clear();
-        weaponPos = transform.GetChild(4);
+        weaponPos = GameObject.Find("/unitychan/WeaponPos").transform;
+        //weaponPos = transform.GetChild(3);
     }
     void Start()
     {
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
                 shot();
             if (Input.GetKeyDown(KeyCode.R))
                 reload();
+            if (Input.GetKeyDown(KeyCode.Tab))
+                swapWeapon();
         }
         
     }
@@ -153,9 +156,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        ownWeapons.Add(weapon);
         equipWeapon(weapon);
-
+        ownWeapons.Add(weapon);
     }
 
     // 무기 떨어뜨림
@@ -167,9 +169,11 @@ public class PlayerController : MonoBehaviour
     // 무기 장착
     void equipWeapon(Weapon weapon)
     {
+        bullets.Clear();
         equipment = weapon;
     }
 
+    // 발사
     void shot()
     {
         if (equipment as Gun == null)
@@ -191,5 +195,10 @@ public class PlayerController : MonoBehaviour
 
         Gun gun = equipment as Gun;
         gun.reload();
+    }
+
+    void swapWeapon()
+    {
+
     }
 }
