@@ -34,7 +34,7 @@ public class MonsterNormalGun : Gun
         if (currentMagazine < 0)
             return;
 
-        Bullet bulletComp = bullet.GetComponent<Bullet>();
+        MonsterNormalGunBullet bulletComp = bullet.GetComponent<MonsterNormalGunBullet>();
         //bulletComp.lookAtPos = bullet.transform.forward;
         //bulletComp.lookAtPos.y = bullet.transform.position.y;
         //bulletComp.Direction = bulletComp.lookAtPos - bullet.transform.position;

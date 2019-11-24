@@ -41,10 +41,11 @@ public class MonsterControll : MonoBehaviour
 
         weaponPos = transform.GetChild(13);
 
+        // 총알생성
         Gun gun = equipment as Gun;
         for (int i = 0; i < gun.MaxMagazine; i++)
         {
-            GameObject newBullet = Instantiate(Resources.Load("Bullet") as GameObject);
+            GameObject newBullet = Instantiate(Resources.Load("MonsterNormalGunBullet") as GameObject);
             newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
             bullets.Add(newBullet);
         }
@@ -91,7 +92,7 @@ public class MonsterControll : MonoBehaviour
         m_Animator.SetTrigger(m_HashAttack2);
 
         bullets[bulletNum].transform.position = weaponPos.position;
-        bullets[bulletNum].GetComponent<Bullet>().Direction = transform.forward;
+        bullets[bulletNum].GetComponent<MonsterNormalGunBullet>().Direction = transform.forward;
         gun.shot(bullets[bulletNum]);
 
         shotTimer = 0.0f;

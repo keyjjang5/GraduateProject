@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -15,6 +16,10 @@ public class PlayerController : MonoBehaviour
     Weapon equipment;
     public List<GameObject> bullets;
     Transform weaponPos;
+
+    GameObject heart;
+    float healthPoint;
+    bool isLive;
 
     public float maxForwardSpeed = 8f;        // How fast Ellen can run.
     public float gravity = 20f;               // How fast Ellen accelerates downwards when airborne.
@@ -40,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     // Animator Parameter
     readonly int m_HashForwardSpeed = Animator.StringToHash("Speed");
+    readonly int m_HashIsLive = Animator.StringToHash("IsLive");
+
 
 
     protected bool IsMoveInput
@@ -59,7 +66,10 @@ public class PlayerController : MonoBehaviour
 
         ownWeapons.Clear();
         weaponPos = GameObject.Find("/unitychan/WeaponPos").transform;
-        //weaponPos = transform.GetChild(3);
+
+        heart = GameObject.Find("PlayerHealth");
+        isLive = true;
+        healthPoint = 3.0f;
     }
     void Start()
     {
@@ -69,7 +79,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.anyKey)
+        if (!isLive)
+            return;
+
+        if (Input.anyKey)
         {
             if (Input.GetMouseButtonDown(0))
                 shot();
@@ -78,7 +91,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
                 swapWeapon();
         }
-        
+
     }
 
     private void FixedUpdate()
@@ -201,5 +214,38 @@ public class PlayerController : MonoBehaviour
     void swapWeapon()
     {
 
+    }
+
+    public void hited(float damage)
+    {
+        if (damage == 0.5f)
+            heartHit();
+        if (damage == 1.0f)
+        {
+            heartHit();
+            heartHit();
+        }
+        healthPoint -= damage;
+        if (healthPoint <= 0.0f)
+            die();
+    }
+
+    void die()
+    {
+        m_Animator.SetBool(m_HashIsLive, false);
+        isLive = false;
+    }
+
+    void heartHit()
+    {
+        Transform first = heart.transform.GetChild(0).GetChild(0);
+        Transform second = heart.transform.GetChild(1).GetChild(0);
+        Transform third = heart.transform.GetChild(2).GetChild(0);
+        if (healthPoint <= 3 && healthPoint > 2)
+            third.GetComponent<Image>().fillAmount = third.GetComponent<Image>().fillAmount - 0.5f;
+        if (healthPoint <= 2 && healthPoint > 1)
+            second.GetComponent<Image>().fillAmount = second.GetComponent<Image>().fillAmount - 0.5f;
+        if (healthPoint <= 1 && healthPoint > 0)
+            first.GetComponent<Image>().fillAmount = first.GetComponent<Image>().fillAmount - 0.5f;
     }
 }
