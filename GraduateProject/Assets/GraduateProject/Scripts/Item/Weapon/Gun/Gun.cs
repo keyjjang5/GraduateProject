@@ -18,9 +18,17 @@ public class Gun : Weapon
     protected float ammo;              // 탄약
     protected int pellets;      // 한발에 사출되는 총알의 수
     protected float reloadTime; // 재장전 시간
+    public float ReloadTime
+    {
+        get { return reloadTime; }
+    }
     protected float range;      // 사정거리
     protected float speed;      // 탄속
     protected float rpm;        // 연사속도(Round Per Minute)
+    public float Rpm
+    {
+        get { return rpm; }
+    }
     protected float damage;     // 공격력
     public float Damage
     {

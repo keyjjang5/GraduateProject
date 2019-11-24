@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
     const float k_GroundDeceleration = 25f;
 
     private float m_LookAngle;
-    [Range(0f, 10f)] [SerializeField] private float m_TurnSpeed = 1.5f;
+    [Range(0f, 10f)] [SerializeField]
+    private float m_TurnSpeed = 1.5f;
     private Quaternion m_TransformTargetRot;
 
     // Animator Parameter
