@@ -25,7 +25,8 @@ public class MonsterControll : MonoBehaviour
     float chaseTimer = 0.0f;
     float shotTimer = 0.0f;
 
-    bool isPlay = true;
+    float healthPoint;
+    bool isLive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -49,12 +50,14 @@ public class MonsterControll : MonoBehaviour
             newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
             bullets.Add(newBullet);
         }
+
+        healthPoint = 4.0f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isPlay)
+        if (!isLive)
             return;
 
         chaseTimer += Time.deltaTime;
@@ -104,9 +107,7 @@ public class MonsterControll : MonoBehaviour
         if (equipment as Gun == null)
             return;
 
-        agent.isStopped = true;
-        isPlay = false;
-        m_Animator.SetBool(m_HashWalkForward, false);
+        pause();
 
         m_Animator.SetTrigger(m_HashJump);
 
@@ -119,7 +120,34 @@ public class MonsterControll : MonoBehaviour
     IEnumerator waitTime(float time)
     {
         yield return new WaitForSeconds(time);
+        pauseEnd();
+    }
+
+    void pause()
+    {
+        agent.isStopped = true;
+        isLive = false;
+        m_Animator.SetBool(m_HashWalkForward, false);
+    }
+
+    void pauseEnd()
+    {
         agent.isStopped = false;
-        isPlay = true;
+        isLive = true;
+    }
+
+    public void hited(float damage)
+    {
+        healthPoint -= damage;
+        if (healthPoint <= 0.0f)
+            die();
+    }
+
+    void die()
+    {
+        pause();
+        m_Animator.SetTrigger(m_HashDie);
+
+        Destroy(gameObject, 1.7f);
     }
 }

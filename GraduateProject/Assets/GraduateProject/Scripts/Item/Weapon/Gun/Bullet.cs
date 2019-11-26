@@ -84,7 +84,9 @@ public class Bullet : MonoBehaviour
         if (other.transform.tag == "Bullet")
             return;
         if (other.transform.tag == "Monster")
-        { }// 몬스터 체력을 데미지 만큼 깎음
+        {
+            other.GetComponent<MonsterControll>().hited(damage);
+        }// 몬스터 체력을 데미지 만큼 깎음
 
         returnMagazine();
     }
