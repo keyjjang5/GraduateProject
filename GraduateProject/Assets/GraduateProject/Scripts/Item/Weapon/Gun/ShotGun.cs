@@ -15,6 +15,7 @@ public class ShotGun : Gun
         speed = 20.0f;
         rpm = 10;
         damage = 1.0f;
+        GunUINum = (int)GunUI.ShotGunUI;
     }
 
     public override void interaction()

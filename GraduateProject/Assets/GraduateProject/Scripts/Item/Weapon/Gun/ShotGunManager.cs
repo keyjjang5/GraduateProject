@@ -21,15 +21,15 @@ public class ShotGunManager : GunManager
     {
         base.addWeapon(weapon);
 
-        // 탄창만큼의 총알을 미리 생성해놓음
-        Gun gun = weapon as Gun;
-        for (int i = 0; i < gun.MaxMagazine; i++)
-        {
-            GameObject newBullet = Instantiate(Resources.Load("ShotGunBullet") as GameObject);
-            newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
-            bullets.Add(newBullet);
-        }
-        playerController.bullets = this.bullets;
+        //// 탄창만큼의 총알을 미리 생성해놓음
+        //Gun gun = weapon as Gun;
+        //for (int i = 0; i < gun.MaxMagazine; i++)
+        //{
+        //    GameObject newBullet = Instantiate(Resources.Load("ShotGunBullet") as GameObject);
+        //    newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
+        //    bullets.Add(newBullet);
+        //}
+        //playerController.bullets = this.bullets;
 
         createGun("ShotGun");
     }

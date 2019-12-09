@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     bool isLive;
 
     ReloadBarController reloadBar;
+    GunUIManager uiManager;
 
     public float maxForwardSpeed = 8f;        // How fast Ellen can run.
     public float gravity = 20f;               // How fast Ellen accelerates downwards when airborne.
@@ -75,6 +76,8 @@ public class PlayerController : MonoBehaviour
 
         reloadBar = GameObject.Find("PlayerReloadBar").GetComponent<ReloadBarController>();
         reloadBar.gameObject.SetActive(false);
+
+        uiManager = GameObject.Find("GunUI").GetComponent<GunUIManager>();
     }
     void Start()
     {
@@ -93,9 +96,17 @@ public class PlayerController : MonoBehaviour
                 shot();
             if (Input.GetKeyDown(KeyCode.R))
                 reload();
-            if (Input.GetKeyDown(KeyCode.Tab))
-                swapWeapon();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                swapWeapon(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                swapWeapon(1);
         }
+
+        if (equipment as Gun == null)
+            return;
+
+        Gun gun = equipment as Gun;
+        uiManager.updateMagazine(gun.MaxMagazine, gun.CurrentMagazine);
 
     }
 
@@ -190,6 +201,52 @@ public class PlayerController : MonoBehaviour
     {
         bullets.Clear();
         equipment = weapon;
+
+        string path = "NormalGun";
+
+        if (equipment as Gun == null)
+            return;
+        Gun gun = equipment as Gun;
+        uiManager.SelectGunUI((int)gun.GunUINum);
+
+        // 새로운 종류의 총이 나올 떄 마다 여기에 방식 추가
+        List<GameObject> tempBullets = new List<GameObject>();
+        if (gun.GunUINum == (int)GunUI.NormalGunUI)
+        {
+            path = "NormalGun";
+            
+            
+            // 탄창만큼의 총알을 미리 생성해놓음
+            for (int i = 0; i < gun.MaxMagazine; i++)
+            {
+                GameObject newBullet = Instantiate(Resources.Load("Bullet") as GameObject);
+                newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
+                tempBullets.Add(newBullet);
+            }
+        }
+        if (gun.GunUINum == (int)GunUI.ShotGunUI)
+        {
+            path = "ShotGun";
+
+            // 탄창만큼의 총알을 미리 생성해놓음
+            for (int i = 0; i < gun.MaxMagazine; i++)
+            {
+                GameObject newBullet = Instantiate(Resources.Load("ShotGunBullet") as GameObject);
+                newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
+                tempBullets.Add(newBullet);
+            }
+        }
+
+        // 이미 장착중인 무기가 있으면 파괴하고 생성
+        if (transform.GetChild(4).childCount > 0)
+            Destroy(transform.GetChild(4).GetChild(0).gameObject);
+
+        GameObject newWeapon = Instantiate(Resources.Load(path)) as GameObject;
+        newWeapon.transform.SetParent(transform.GetChild(4));
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localRotation = newWeapon.transform.parent.localRotation;
+
+        bullets = tempBullets;
     }
 
     // 발사
@@ -204,6 +261,8 @@ public class PlayerController : MonoBehaviour
             return;
         bullets[bulletNum].transform.position = weaponPos.position;
         gun.shot(bullets[bulletNum]);
+
+        uiManager.updateMagazine(gun.MaxMagazine, gun.CurrentMagazine);
     }
 
     // 재장전
@@ -215,11 +274,12 @@ public class PlayerController : MonoBehaviour
         Gun gun = equipment as Gun;
         reloadBar.gameObject.SetActive(true);
         reloadBar.reload(gun, gun.ReloadTime);
+
     }
 
-    void swapWeapon()
+    void swapWeapon(int num)
     {
-
+        equipWeapon(ownWeapons[num]);
     }
 
     public void hited(float damage)

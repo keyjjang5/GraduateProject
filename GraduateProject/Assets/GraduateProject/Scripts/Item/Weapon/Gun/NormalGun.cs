@@ -16,6 +16,7 @@ public class NormalGun : Gun
         speed = 7.0f;
         rpm = 60;
         damage = 1.0f;
+        GunUINum = (int)GunUI.NormalGunUI;
     }
 
     public override void interaction()

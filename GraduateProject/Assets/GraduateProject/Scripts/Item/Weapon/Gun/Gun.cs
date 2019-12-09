@@ -35,6 +35,14 @@ public class Gun : Weapon
         get { return damage; }
     }
 
+    GunUI gunUI;
+    public int GunUINum
+    {
+        get { return (int)gunUI; }
+        set { gunUI = (GunUI)value; }
+    }
+
+
     public Gun() : base()
     {
 
