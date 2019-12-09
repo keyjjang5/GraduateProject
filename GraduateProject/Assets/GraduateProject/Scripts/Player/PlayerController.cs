@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     float healthPoint;
     bool isLive;
 
+    ReloadBarController reloadBar;
+
     public float maxForwardSpeed = 8f;        // How fast Ellen can run.
     public float gravity = 20f;               // How fast Ellen accelerates downwards when airborne.
     public float jumpSpeed = 10f;             // How fast Ellen takes off when jumping.
@@ -70,6 +72,9 @@ public class PlayerController : MonoBehaviour
         heart = GameObject.Find("PlayerHealth");
         isLive = true;
         healthPoint = 3.0f;
+
+        reloadBar = GameObject.Find("PlayerReloadBar").GetComponent<ReloadBarController>();
+        reloadBar.gameObject.SetActive(false);
     }
     void Start()
     {
@@ -208,7 +213,8 @@ public class PlayerController : MonoBehaviour
             return;
 
         Gun gun = equipment as Gun;
-        gun.reload();
+        reloadBar.gameObject.SetActive(true);
+        reloadBar.reload(gun, gun.ReloadTime);
     }
 
     void swapWeapon()

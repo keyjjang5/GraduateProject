@@ -42,6 +42,8 @@ public class MonsterNormalGun : Gun
         bulletComp.range = this.range;
         bulletComp.IsPlay = true;
         bulletComp.Damage = damage;
+        bullet.transform.LookAt(bulletComp.target.transform.position);
+
 
         currentMagazine -= 1;
     }

@@ -54,7 +54,7 @@ public class ShotGunBullet : Bullet
             bulletComp.IsPlay = true;
             bulletComp.Damage = damage;
 
-            bulletComp.Direction = Quaternion.Euler(0, -20, 0) * bulletComp.Direction;
+            bulletComp.Direction = Quaternion.Euler(0, -10, 0) * bulletComp.Direction;
             bulletComp.Direction = Quaternion.Euler(0, 5 * i, 0) * bulletComp.Direction;
         }
     }

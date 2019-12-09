@@ -48,6 +48,7 @@ public class MonsterControll : MonoBehaviour
         {
             GameObject newBullet = Instantiate(Resources.Load("MonsterNormalGunBullet") as GameObject);
             newBullet.transform.position = new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f);
+            newBullet.GetComponent<MonsterNormalGunBullet>().setMagazinePos(new Vector3(100.0f + i * 2.0f, 100.0f, 100.0f));
             bullets.Add(newBullet);
         }
 

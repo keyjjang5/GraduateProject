@@ -11,7 +11,7 @@ public class NormalGun : Gun
         currentMagazine = 12;
         ammo = Mathf.Infinity;
         pellets = 1;
-        reloadTime = 5.0f;
+        reloadTime = 2.0f;
         range = 20.0f;
         speed = 7.0f;
         rpm = 60;
@@ -38,6 +38,7 @@ public class NormalGun : Gun
         bulletComp.lookAtPos = MousePointer.GetMousePos();
         bulletComp.lookAtPos.y = bullet.transform.position.y;
         bulletComp.Direction = bulletComp.lookAtPos - bullet.transform.position;
+        bullet.transform.LookAt(bulletComp.lookAtPos);
         bulletComp.speed = this.speed;
         bulletComp.range = this.range;
         bulletComp.IsPlay = true;

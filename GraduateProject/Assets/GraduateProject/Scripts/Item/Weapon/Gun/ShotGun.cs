@@ -9,8 +9,8 @@ public class ShotGun : Gun
         maxMagazine = 2;
         currentMagazine = 2;
         ammo = 40;
-        pellets = 10;
-        reloadTime = 5.0f;
+        pellets = 5;
+        reloadTime = 3.5f;
         range = 10.0f;
         speed = 20.0f;
         rpm = 10;

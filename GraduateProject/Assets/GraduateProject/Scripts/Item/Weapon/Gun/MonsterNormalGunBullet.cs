@@ -7,6 +7,7 @@ using UnityEngine;
 public class MonsterNormalGunBullet : MonoBehaviour
 {
     public Vector3 lookAtPos;
+    public GameObject target;
     public float speed;
     public float range;
     protected float timer;
@@ -42,7 +43,9 @@ public class MonsterNormalGunBullet : MonoBehaviour
     {
         timer = 0.0f;
 
-        magazinePos = transform.position;
+        setMagazinePos(transform.position);
+
+        target = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -92,5 +95,10 @@ public class MonsterNormalGunBullet : MonoBehaviour
         transform.position = magazinePos;
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         timer = 0.0f;
+    }
+
+    public void setMagazinePos(Vector3 position)
+    {
+        magazinePos = position;
     }
 }
