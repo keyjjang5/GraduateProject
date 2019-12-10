@@ -85,6 +85,9 @@ public class MonsterControll : MonoBehaviour
         if (equipment as Gun == null)
             return;
 
+        if (Vector2.Distance(target.transform.position, transform.position) > 17.0f)
+            return;
+
         Gun gun = equipment as Gun;
         int bulletNum = gun.MaxMagazine - gun.CurrentMagazine;
         if (bulletNum == gun.MaxMagazine)
@@ -115,7 +118,7 @@ public class MonsterControll : MonoBehaviour
         Gun gun = equipment as Gun;
         gun.reload();
 
-        StartCoroutine(waitTime(3.0f));
+        StartCoroutine(waitTime(gun.ReloadTime));
     }
 
     IEnumerator waitTime(float time)

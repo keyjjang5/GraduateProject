@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -112,6 +111,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isLive)
+            return;
+
         lookAtMouse();
         fixedMoveCharacter();
     }
@@ -300,7 +302,15 @@ public class PlayerController : MonoBehaviour
     {
         m_Animator.SetBool(m_HashIsLive, false);
         isLive = false;
+
+        Invoke("goEndScene", 3.0f);
     }
+
+    void goEndScene()
+    {
+        MySceneManager.goEndScene();
+    }
+
 
     void heartHit()
     {
