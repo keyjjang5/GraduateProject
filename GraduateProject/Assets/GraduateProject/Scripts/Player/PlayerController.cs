@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
 
     protected float m_DesiredForwardSpeed;         // How fast Ellen aims be going along the ground based on input.
     protected float m_ForwardSpeed;                // How fast Ellen is currently going along the ground.
-    protected float m_VerticalSpeed;               // How fast Ellen is currently moving up or down.
     protected PlayerInput m_Input;                 // Reference used to determine how Ellen should move.
     protected Animator m_Animator;                 // Reference used to make decisions based on Ellen's current animation and to set parameters.
 
@@ -173,7 +172,7 @@ public class PlayerController : MonoBehaviour
         float acceleration = IsMoveInput ? k_GroundAcceleration : k_GroundDeceleration;
 
         // Adjust the forward speed towards the desired speed.
-        m_ForwardSpeed = Mathf.MoveTowards(m_ForwardSpeed, m_DesiredForwardSpeed, acceleration * Time.deltaTime);
+        m_ForwardSpeed = Mathf.MoveTowards(m_ForwardSpeed, m_DesiredForwardSpeed, acceleration * Time.deltaTime * Mathf.Infinity);
 
         // Set the animator parameter to control what animation is being played.
         m_Animator.SetFloat(m_HashForwardSpeed, m_ForwardSpeed);
