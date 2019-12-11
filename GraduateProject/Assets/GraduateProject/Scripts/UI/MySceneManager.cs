@@ -14,10 +14,11 @@ public class MySceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.T))
             goSampleScene();
 
-
+        if (Input.GetKeyDown(KeyCode.P))
+            goSuccessScene();
     }
 
     static public void goEndScene()
@@ -27,5 +28,9 @@ public class MySceneManager : MonoBehaviour
     static public void goSampleScene()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+    static public void goSuccessScene()
+    {
+        SceneManager.LoadScene("SuccessScene");
     }
 }
