@@ -17,7 +17,7 @@ public class MonsterHp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
 
         healthPoint = 4.0f;
@@ -32,7 +32,7 @@ public class MonsterHp : MonoBehaviour
 
     void pause()
     {
-        agent.isStopped = true;
+        //agent.isStopped = true;
         isLive = false;
         m_Animator.SetBool(m_HashWalkForward, false);
     }

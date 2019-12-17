@@ -25,21 +25,6 @@ public class PortalController : MonoBehaviour
         {
             Debug.Log("tlfgod");
             other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
-            other.transform.position = target.transform.position + new Vector3(0.0f, 1.0f);
 
         }
     }

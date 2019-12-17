@@ -31,7 +31,7 @@ public class FieryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         target = GameObject.Find("unitychan");
         m_Animator = GetComponent<Animator>();
 
@@ -74,7 +74,7 @@ public class FieryController : MonoBehaviour
 
     void chaseTarget()
     {
-        agent.destination = target.transform.position; // 어떤 위치를 설정하면 해당 위치로 자동으로 이동됨
+        //agent.destination = target.transform.position; // 어떤 위치를 설정하면 해당 위치로 자동으로 이동됨
         m_Animator.SetBool(m_HashWalkForward, true);
 
         chaseTimer = 0.0f;
@@ -129,14 +129,14 @@ public class FieryController : MonoBehaviour
 
     void pause()
     {
-        agent.isStopped = true;
+        //agent.isStopped = true;
         isLive = false;
         m_Animator.SetBool(m_HashWalkForward, false);
     }
 
     void pauseEnd()
     {
-        agent.isStopped = false;
+        //agent.isStopped = false;
         isLive = true;
     }
 
