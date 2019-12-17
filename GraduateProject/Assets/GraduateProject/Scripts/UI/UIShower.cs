@@ -8,9 +8,7 @@ using UnityEngine.UI;
 public class UIShower : MonoBehaviour
 {
     public Scrollbar elementalScrollbar;
-
     public Camera camera;
-
     private Transform target;
 
 

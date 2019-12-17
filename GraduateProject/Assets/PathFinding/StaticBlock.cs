@@ -10,7 +10,7 @@ public class StaticBlock : MonoBehaviour
     {
         Static,     // 이동하지 않는 물체
         Moveable,   // 이동하는 물체
-        Swamp
+        Swamp       // 늪, 이동할 수 있지만 일반 타일보다 코스트가 많이 소모됨
     }
 
     public ObjectType objType = ObjectType.Static;
